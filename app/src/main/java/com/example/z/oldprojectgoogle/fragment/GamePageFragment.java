@@ -7,23 +7,24 @@ import android.widget.TextView;
 import java.util.Random;
 
 /**
- * Created by z on 2018/4/19.
+ * Created by z on 2018/4/20.
  */
 
-public class HomePageFragment extends BaseFragment {
-
-
+public  class GamePageFragment extends BaseFragment {
     @Override
     protected View showSuccessView() {
         TextView textView = new TextView(getContext());
-        textView.setText("nima");
+        textView.setText("哈哈哈");
         textView.setGravity(Gravity.CENTER);
         return textView;
     }
 
     @Override
     public int requestInternet() {
+
         Random random = new Random();
         return random.nextInt(3);
     }
+
+
 }

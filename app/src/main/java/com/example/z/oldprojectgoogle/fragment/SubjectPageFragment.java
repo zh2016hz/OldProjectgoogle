@@ -10,7 +10,7 @@ import java.util.Random;
  * Created by z on 2018/4/20.
  */
 
-public  class ApkPageFragment extends BaseFragment {
+public  class SubjectPageFragment extends BaseFragment {
     @Override
     protected View showSuccessView() {
         TextView textView = new TextView(getContext());
@@ -21,7 +21,21 @@ public  class ApkPageFragment extends BaseFragment {
 
     @Override
     public int requestInternet() {
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         Random random = new Random();
         return random.nextInt(3);
     }

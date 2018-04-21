@@ -76,6 +76,11 @@ public abstract class LoadDataView extends FrameLayout {
      * 进行网络请求
      */
     public void requestData() {
+
+        //优化重复请求数据
+        if(STATE_CURRENT == STATE_LOADING){
+            return;
+        }
         STATE_CURRENT = STATE_LOADING;
         controlShow();
         STATE_CURRENT = request();

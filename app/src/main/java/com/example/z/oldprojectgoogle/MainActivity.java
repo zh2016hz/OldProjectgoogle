@@ -3,12 +3,11 @@ package com.example.z.oldprojectgoogle;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.z.oldprojectgoogle.fragment.ApkPageFragment;
-import com.example.z.oldprojectgoogle.fragment.HomePageFragment;
+import com.example.z.oldprojectgoogle.manager.FragmentFactory;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-    private class FragmentAdapter extends FragmentPagerAdapter {
+    private class FragmentAdapter extends FragmentStatePagerAdapter {
+
+        private static final String TAG = "家具";
 
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment  mfragment =null;
+           return FragmentFactory.getInstance().getFragment(position);
+            /*Fragment  mfragment =null;
+            Log.e(TAG, "getItem: item "+position );
           switch (position){
               case 0:
                   mfragment = new HomePageFragment();
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                   break;
           }
 
-            return mfragment;
+            return mfragment;*/
         }
 
         @Override
