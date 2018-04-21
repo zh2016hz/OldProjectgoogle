@@ -78,10 +78,10 @@ public abstract class LoadDataView extends FrameLayout {
      */
     public void requestData() {
 
-        //优化重复请求数据
-        if(STATE_CURRENT == STATE_LOADING){
-            return;
-        }
+//        //优化重复请求数据
+//        if(STATE_CURRENT == STATE_LOADING){
+//            return;
+//        }
         STATE_CURRENT = STATE_LOADING;
         controlShow();
         STATE_CURRENT = request();

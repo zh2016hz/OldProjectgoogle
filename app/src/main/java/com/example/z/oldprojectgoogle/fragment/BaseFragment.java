@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.example.z.oldprojectgoogle.R;
 import com.example.z.oldprojectgoogle.view.LoadDataView;
 
 import static android.content.ContentValues.TAG;
@@ -26,17 +25,6 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = View.inflate(getContext(), R.layout.base_fragment_layout, null);
-        mBaseView = (FrameLayout) inflate.findViewById(R.id.base_fragment_frame);
-        Log.e(TAG, "getItem: item 我是 oncreteView   !!!!!!!!!!!!" );
-
-        return inflate;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.e(TAG, "getItem: item 我是 xxxxxxxx   !!!!!!!!!!!!" );
         if(mLoadDataView==null){
             mLoadDataView = new LoadDataView(getContext()) {
                 @Override
@@ -49,13 +37,16 @@ public abstract class BaseFragment extends Fragment {
                     return requestInternet();
                 }
             };
-            mBaseView.addView(mLoadDataView);
+
 
         }
+        return mLoadDataView;
+    }
 
-
-
-//        mBaseView.addView(getShowView());
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e(TAG, "getItem: item 我是 xxxxxxxx   !!!!!!!!!!!!" );
 
     }
 

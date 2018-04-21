@@ -1,11 +1,14 @@
 package com.example.z.oldprojectgoogle.fragment;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import static android.content.ContentValues.TAG;
+import com.example.z.oldprojectgoogle.FragmentBaseAdapter;
+import com.example.z.oldprojectgoogle.R;
+import com.example.z.oldprojectgoogle.manager.BaseViewHolder;
+
+import java.util.ArrayList;
 
 /**
  * Created by z on 2018/4/19.
@@ -13,28 +16,58 @@ import static android.content.ContentValues.TAG;
 
 public class HomePageFragment extends BaseFragment {
 
+    private ArrayList<String> listData = new ArrayList<>();
+    private ListView mListView;
+    private View mConvertView;
 
     @Override
     protected View showSuccessView() {
-        TextView textView = new TextView(getContext());
-        textView.setText("nima");
-        textView.setGravity(Gravity.CENTER);
-        return textView;
+        mockData();
+        mListView = new ListView(getContext());
+        mListView.setAdapter(new HomeAdapter(listData));
+
+        return mListView;
+    }
+
+    private void mockData() {
+        for (int i = 0; i < 50; i++) {
+            listData.add(i, "woshi我是第 " + i + "   个数据");
+        }
+    }
+
+    private class HomeAdapter extends FragmentBaseAdapter {
+
+        public HomeAdapter(ArrayList t) {
+            super(t);
+        }
+
+        @Override
+        public BaseViewHolder getBaseHolder() {
+            return new HomeViewHolder();
+        }
     }
 
     @Override
     public int requestInternet() {
-        Log.e(TAG, "哈哈哈哈哈奥或或或或或或或或或或或或或或或或或或或" );
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        return 1;
+
+        return 0 ;
+    }
+
+    private class HomeViewHolder extends BaseViewHolder<String> {
+        public TextView homeText;
+
+        @Override
+        public View inflaterAndFindId() {
+            mConvertView = View.inflate(getContext(), R.layout.home_page_layout_item, null);
+            homeText = (TextView) mConvertView.findViewById(R.id.home_page_text);
+            return mConvertView;
+        }
+
+        @Override
+        public void setData(String o) {
+            homeText.setText(o);
+        }
+
+
     }
 }
