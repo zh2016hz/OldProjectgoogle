@@ -50,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
                 }
             };
             mBaseView.addView(mLoadDataView);
-            mLoadDataView.requestData();
+
         }
 
 
@@ -63,7 +63,13 @@ public abstract class BaseFragment extends Fragment {
 
 
     public abstract int requestInternet();
-
-
+    /**
+     *  这个请求不能放在生命周期中执行，要单独拿出来
+     */
+    public  void  doRequest(){
+        if(mLoadDataView !=null){
+        mLoadDataView.requestData();
+        }
+    }
 
 }

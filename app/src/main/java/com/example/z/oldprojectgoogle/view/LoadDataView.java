@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.z.oldprojectgoogle.R;
+import com.example.z.oldprojectgoogle.manager.ThreadManager;
 
 /**
  * Created by z on 2018/4/21.
@@ -84,7 +85,7 @@ public abstract class LoadDataView extends FrameLayout {
         STATE_CURRENT = STATE_LOADING;
         controlShow();
         STATE_CURRENT = request();
-        new Thread(new Runnable() {
+      /*  new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -104,7 +105,22 @@ public abstract class LoadDataView extends FrameLayout {
                 }
 
             }
-        }).start();
+        }).start();*/
+
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                STATE_CURRENT = request();
+//                    controlShow() ; 直接调用会报错
+//                    使用handler
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        controlShow();
+                    }
+                });
+            }
+        });
     }
     /**
      * 具体做什么请求

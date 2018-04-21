@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.z.oldprojectgoogle.fragment.BaseFragment;
 import com.example.z.oldprojectgoogle.manager.FragmentFactory;
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private String[] mTitles;
+    private TitlePageIndicator mIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,40 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //获取标题
         mTitles = this.getResources().getStringArray(R.array.pagers);
-        TitlePageIndicator indicator = (TitlePageIndicator) findViewById(R.id.titles);
+        mIndicator = (TitlePageIndicator) findViewById(R.id.titles);
 
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
-        indicator.setViewPager(mViewPager);
+        mIndicator.setViewPager(mViewPager);
+        mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
+            @Override
+            public void onPageSelected(int position) {
+                //在这里去请求数据
+//                获取当前fragment  肯定不能new
+
+                BaseFragment fragment = FragmentFactory.getInstance().getFragment(position);
+                fragment.doRequest();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+            }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       /* if(mIndicator !=null){
+            mIndicator.remove
+        }*/
+    }
 
     private class FragmentAdapter extends FragmentStatePagerAdapter {
 

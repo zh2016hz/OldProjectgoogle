@@ -1,10 +1,11 @@
 package com.example.z.oldprojectgoogle.fragment;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Random;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by z on 2018/4/21.
@@ -21,23 +22,18 @@ public class RecommendPageFragment extends BaseFragment {
 
     @Override
     public int requestInternet() {
+        Log.e(TAG, "哈哈哈哈哈奥或或或或或或或或或或或或或或或或或或或" );
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                        }
-                    });
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        Random random = new Random();
-        return random.nextInt(3);
+        return 0;
     }
 
 
